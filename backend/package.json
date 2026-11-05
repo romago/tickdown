@@ -4,7 +4,8 @@
   "type": "module",
   "scripts": {
     "dev": "nodemon --watch src --ext js src/index.js",
-    "start": "node src/index.js"
+    "start": "node src/index.js",
+    "seed:demo": "node scripts/seed-demo.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
