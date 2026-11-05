@@ -10,6 +10,8 @@ const signToken = (userId) =>
 
 // POST /api/auth/register
 router.post('/register', async (req, res) => {
+  if (process.env.ALLOW_REGISTRATION === 'false')
+    return res.status(403).json({ message: 'Sign-up is closed here. Use the demo account.' });
   try {
     const { name, email, password } = req.body;
     if (!name || !email || !password)
@@ -61,6 +63,9 @@ router.put('/password', authenticate, async (req, res) => {
       return res.status(400).json({ message: 'All fields are required' });
     if (newPassword.length < 6)
       return res.status(400).json({ message: 'New password must be at least 6 characters' });
+    // The shared demo account keeps its password, so the next visitor can still sign in.
+    if (process.env.DEMO_EMAIL && req.user.email === process.env.DEMO_EMAIL.toLowerCase())
+      return res.status(403).json({ message: 'The demo account password cannot be changed' });
 
     const user = await req.user.constructor.findById(req.user._id);
     const match = await user.comparePassword(currentPassword);

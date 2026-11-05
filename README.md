@@ -67,6 +67,8 @@ Upgrading an install from before the rename (when it was called Checkmate): add 
 
 Demo data: `DEMO_PASSWORD=... npm run seed:demo` in `backend/` creates (or resets) a demo account with sample folders and notes.
 
+Public demo mode: build the frontend with `VITE_DEMO_EMAIL` and `VITE_DEMO_PASSWORD` to get a "Try the demo" button instead of sign-up, and run the API with `ALLOW_REGISTRATION=false` and `DEMO_EMAIL` so nobody can register or change the demo password. Run `seed:demo` from cron to reset the demo every night.
+
 ## Author
 
 Built by [Roman Iglin](https://iglin.dev), full stack developer.
