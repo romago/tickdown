@@ -40,7 +40,7 @@ const notes = [
   },
   {
     folder: 'Work', title: 'Client call notes', tags: ['client'],
-    content: '<h2>Q4 priorities</h2><p>They want the <mark>pricing page</mark> rebuilt before the holiday campaign, then a speed pass on the blog.</p><ul><li><p>Send a quote by Wednesday</p></li><li><p>Ask for Figma access</p></li></ul>',
+    content: '<h3>Q4 priorities</h3><p>They want the <mark>pricing page</mark> rebuilt before the holiday campaign, then a speed pass on the blog.</p><ul><li><p>Send a quote by Wednesday</p></li><li><p>Ask for Figma access</p></li></ul>',
   },
   {
     folder: 'Home', pinned: true, title: 'Groceries', tags: [],
@@ -85,7 +85,8 @@ for (const n of notes) {
     userId: user._id,
     folderId: folderIds[n.folder],
     title: n.title,
-    content: n.content,
+    // Like a real note, the first line is the title; the editor derives the title from it.
+    content: `<h2>${n.title}</h2>${n.content}`,
     tags: n.tags,
     isPinned: Boolean(n.pinned),
   });
