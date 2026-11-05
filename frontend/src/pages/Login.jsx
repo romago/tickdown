@@ -2,6 +2,10 @@ import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useStore } from '../store/useStore';
 
+// Set at build time on the public demo: shows a one-click "Try the demo" sign-in instead of sign-up.
+const DEMO_EMAIL = import.meta.env.VITE_DEMO_EMAIL;
+const DEMO_PASSWORD = import.meta.env.VITE_DEMO_PASSWORD;
+
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -14,18 +18,22 @@ export default function Login() {
     if (token) navigate('/');
   }, [token, navigate]);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const signIn = async (signInEmail, signInPassword) => {
     setError('');
     setLoading(true);
     try {
-      await login(email, password);
+      await login(signInEmail, signInPassword);
       navigate('/');
     } catch (err) {
       setError(err.response?.data?.message || 'Login failed');
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    signIn(email, password);
   };
 
   return (
@@ -80,12 +88,26 @@ export default function Login() {
           </button>
         </form>
 
-        <p className="text-center text-sm text-notes-muted mt-4">
-          No account?{' '}
-          <Link to="/register" className="text-notes-text font-medium hover:underline">
-            Create one
-          </Link>
-        </p>
+        {DEMO_EMAIL ? (
+          <div className="mt-4 text-center">
+            <button
+              type="button"
+              onClick={() => signIn(DEMO_EMAIL, DEMO_PASSWORD)}
+              disabled={loading}
+              className="w-full bg-notes-text text-white font-semibold py-2.5 rounded-xl hover:opacity-90 transition-opacity disabled:opacity-50"
+            >
+              Try the demo
+            </button>
+            <p className="text-xs text-notes-muted mt-2">A shared demo account. Notes reset every night.</p>
+          </div>
+        ) : (
+          <p className="text-center text-sm text-notes-muted mt-4">
+            No account?{' '}
+            <Link to="/register" className="text-notes-text font-medium hover:underline">
+              Create one
+            </Link>
+          </p>
+        )}
       </div>
     </div>
   );
