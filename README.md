@@ -4,6 +4,8 @@
 
 I built it for my own daily use, as a self-hosted alternative to Apple Notes that works the same on desktop and phone.
 
+**Live demo: [tickdown.iglin.dev](https://tickdown.iglin.dev)** (click "Try the demo"; the demo notes reset every night).
+
 ![Tickdown on desktop: folders, note list and a checklist note](docs/desktop.jpg)
 
 <img src="docs/mobile.jpg" alt="Tickdown on a phone" width="260" align="right">

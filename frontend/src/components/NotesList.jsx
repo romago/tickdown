@@ -22,12 +22,16 @@ export default function NotesList({ onNoteSelect, onBack }) {
   const pinned = notes.filter((n) => n.isPinned);
   const unpinned = notes.filter((n) => !n.isPinned);
 
+  // Text of each block after the first one (the first line is the title), joined with spaces.
   const extractPreview = (content) => {
     if (!content) return 'No content';
     const div = document.createElement('div');
     div.innerHTML = content;
-    const text = (div.textContent || div.innerText || '').trim();
-    return text.slice(0, 80) || 'No content';
+    const lines = [...div.querySelectorAll('h1, h2, h3, p, pre, blockquote')]
+      .filter((el) => !el.querySelector('p'))
+      .map((el) => el.textContent.trim())
+      .filter(Boolean);
+    return lines.slice(1).join(' · ').slice(0, 80) || 'No additional text';
   };
 
   return (

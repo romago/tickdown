@@ -65,7 +65,8 @@ export default function NoteEditor({ onBack, isEditMode = true }) {
       if (!selectedNoteId) return;
       const html = editor.getHTML();
       const text = editor.getText();
-      const firstLine = text.split('\n')[0]?.trim() || '';
+      // The title is the first line with text, so a note that starts with a checklist keeps a real title.
+      const firstLine = text.split('\n').map((line) => line.trim()).find(Boolean) || '';
       const title = firstLine.slice(0, 100) || 'New note';
       debouncedSave(selectedNoteId, html, title);
     },
@@ -298,9 +299,9 @@ export default function NoteEditor({ onBack, isEditMode = true }) {
         </div>
       </div>
 
-      {/* Note meta */}
-      <div className="px-4 md:px-8 pt-5 pb-3 border-b border-notes-border/30">
-        <div className="flex items-center gap-2 text-[11px] text-notes-muted mb-1">
+      {/* Note meta. The title is the note's first line, so it is not repeated here. */}
+      <div className="px-4 md:px-8 pt-4 pb-3 border-b border-notes-border/30">
+        <div className="flex items-center gap-2 text-[11px] text-notes-muted">
           {folder && (
             <>
               <div className="w-2.5 h-2.5 rounded-sm" style={{ backgroundColor: folder.color }} />
@@ -312,7 +313,6 @@ export default function NoteEditor({ onBack, isEditMode = true }) {
           <span>·</span>
           <span>{wordCount} {wordCount === 1 ? 'word' : 'words'}</span>
         </div>
-        <h1 className="text-xl font-semibold text-notes-text">{note.title}</h1>
       </div>
 
       {/* Editor content */}
