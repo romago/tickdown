@@ -17,14 +17,14 @@ export const useStore = create(
       // ── Auth ──────────────────────────────────────────────
       login: async (email, password) => {
         const { data } = await api.post('/auth/login', { email, password });
-        localStorage.setItem('checkmate_token', data.token);
+        localStorage.setItem('tickdown_token', data.token);
         set({ user: data.user, token: data.token });
         await get().fetchAll();
       },
 
       register: async (name, email, password) => {
         const { data } = await api.post('/auth/register', { name, email, password });
-        localStorage.setItem('checkmate_token', data.token);
+        localStorage.setItem('tickdown_token', data.token);
         set({ user: data.user, token: data.token });
       },
 
@@ -33,7 +33,7 @@ export const useStore = create(
       },
 
       logout: () => {
-        localStorage.removeItem('checkmate_token');
+        localStorage.removeItem('tickdown_token');
         set({ user: null, token: null, folders: [], notes: [], selectedNoteId: null });
       },
 
@@ -132,20 +132,20 @@ export const useStore = create(
       },
 
       init: async () => {
-        const token = localStorage.getItem('checkmate_token');
+        const token = localStorage.getItem('tickdown_token');
         if (!token) return;
         try {
           const { data } = await api.get('/auth/me');
           set({ user: data.user, token });
           await get().fetchAll();
         } catch {
-          localStorage.removeItem('checkmate_token');
+          localStorage.removeItem('tickdown_token');
           set({ user: null, token: null });
         }
       },
     }),
     {
-      name: 'checkmate-store',
+      name: 'tickdown-store',
       partialize: (s) => ({ token: s.token, user: s.user }),
     }
   )

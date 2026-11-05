@@ -1,12 +1,12 @@
-# Checkmate
+# Tickdown
 
 **Notes that know when you're done.** A fast notes app with checklists: when you tick a task it drops to the bottom of its list on its own, so what is left to do always stays on top.
 
 I built it for my own daily use, as a self-hosted alternative to Apple Notes that works the same on desktop and phone.
 
-![Checkmate on desktop: folders, note list and a checklist note](docs/desktop.jpg)
+![Tickdown on desktop: folders, note list and a checklist note](docs/desktop.jpg)
 
-<img src="docs/mobile.jpg" alt="Checkmate on a phone" width="260" align="right">
+<img src="docs/mobile.jpg" alt="Tickdown on a phone" width="260" align="right">
 
 ## Features
 
@@ -57,11 +57,13 @@ Without Docker (a local MongoDB on port 27017):
 
 ```bash
 cd backend && npm install
-MONGODB_URI=mongodb://127.0.0.1:27017/checkmate JWT_SECRET=dev-secret-at-least-32-characters-long npm run dev
+MONGODB_URI=mongodb://127.0.0.1:27017/tickdown JWT_SECRET=dev-secret-at-least-32-characters-long npm run dev
 
 cd frontend && npm install
 API_TARGET=http://localhost:5000 npm run dev   # http://localhost:3000
 ```
+
+Upgrading an install from before the rename (when it was called Checkmate): add `MONGO_USER=checkmate` and `MONGO_DB=checkmate` to `.env` so the existing database is used, then run `docker compose down` before `docker compose up -d --build`, because the container names changed.
 
 Demo data: `DEMO_PASSWORD=... npm run seed:demo` in `backend/` creates (or resets) a demo account with sample folders and notes.
 

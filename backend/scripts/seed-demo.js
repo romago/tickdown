@@ -8,7 +8,7 @@ import Note from '../src/models/Note.js';
 
 dotenv.config();
 
-const email = process.env.DEMO_EMAIL || 'demo@checkmate.app';
+const email = process.env.DEMO_EMAIL || 'demo@tickdown.app';
 const password = process.env.DEMO_PASSWORD;
 if (!password) {
   console.error('Set DEMO_PASSWORD (at least 6 characters).');
