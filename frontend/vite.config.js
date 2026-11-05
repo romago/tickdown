@@ -8,7 +8,8 @@ export default defineConfig({
     host: true,
     proxy: {
       '/api': {
-        target: 'http://backend:5000',
+        // Docker Compose service name by default; API_TARGET=http://localhost:5000 for a local backend.
+        target: process.env.API_TARGET || 'http://backend:5000',
         changeOrigin: true,
       },
     },

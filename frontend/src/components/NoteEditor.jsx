@@ -151,7 +151,6 @@ export default function NoteEditor({ onBack, isEditMode = true }) {
     const toggleTaskItem = (taskItemEl, newChecked) => {
       const found = getTaskItemPMNode(taskItemEl);
       if (!found) return;
-      console.log('[toggle] dispatching checked:', found.node.attrs.checked, '→', newChecked);
       editor.view.dispatch(
         editor.view.state.tr.setNodeMarkup(found.pos, null, { ...found.node.attrs, checked: newChecked })
       );
@@ -182,7 +181,6 @@ export default function NoteEditor({ onBack, isEditMode = true }) {
       if (!taskItemEl) return;
       const found = getTaskItemPMNode(taskItemEl);
       if (!found) return;
-      console.log('[touchend text] curChecked:', found.node.attrs.checked, '→', !found.node.attrs.checked);
       toggleTaskItem(taskItemEl, !found.node.attrs.checked);
     };
 

@@ -36,7 +36,7 @@ export default function Register() {
           <div className="w-16 h-16 bg-notes-yellow rounded-2xl flex items-center justify-center mx-auto mb-4 text-3xl shadow-sm">
             ✓
           </div>
-          <h1 className="text-2xl font-bold text-notes-text">Checkmate</h1>
+          <h1 className="text-2xl font-bold text-notes-text">Tickdown</h1>
           <p className="text-notes-muted text-sm mt-1">Create your account</p>
         </div>
 
